@@ -45,6 +45,7 @@ const addClick = (event) => {
     data.push(input)
     document.querySelector('.inputfield').value = '';
     pendingCounter(data);
+    completedCounter(data);
 }
 
 const plusClick = () => {
@@ -54,8 +55,35 @@ const plusClick = () => {
 
 plusClick();
 
+
+// Számlálók
+
 const pendingCounter = (arr) => {
-    let number = document.querySelector('.pendingNumber');
+    const number = document.querySelector('.pendingNumber');
     number.textContent = arr.length;
+}
+
+//let copyArray = [];
+//const completedCounter = (arr) => {
+//    const percent = document.querySelector('.completedPercent');
+//    if (arr.length !== 0) {
+//        copyArray.concat(arr);
+//    }
+//    let percentValue = copyArray.length / arr.length * 100;
+//    if (percentValue === NaN) {
+//        percent.textContent = `Not yet`;
+//    } else {
+//        percent.textContent = `${percentValue}%`;
+//    }
+//};
+//
+//completedCounter(data);
+
+
+// Lista megjelenítés
+
+
+const listGenerator = (arr) => {
+    const li = document.createElement('li');
 }
 

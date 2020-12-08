@@ -43,9 +43,10 @@ const addClick = (event) => {
         return alert('Írj be valamit a mezőbe a gomb megnyomása előtt!');
     }
     data.push(input)
+    listGenerator(input);
     document.querySelector('.inputfield').value = '';
     pendingCounter(data);
-    completedCounter(data);
+    //    completedCounter(data);
 }
 
 const plusClick = () => {
@@ -83,7 +84,33 @@ const pendingCounter = (arr) => {
 // Lista megjelenítés
 
 
-const listGenerator = (arr) => {
-    const li = document.createElement('li');
+const listGenerator = (input) => {
+    const newDomElement = `<div class="checkdiv"><input type="checkbox" id="checkbox">
+<span class="checklist">${input}</span><span class="delete">⛒</span></div>`;
+    document.querySelector('.pendingdiv').innerHTML = newDomElement;  //Egyenlő helyett hozzácsatolás kellene
+    listHover();
+};
+
+
+// Törlés gomb megjelenítés
+
+const showDelete = (event) => {
+    const span = event.currentTarget.children[2];
+    span.style.display = 'block';
 }
+
+const hideDelete = (event) => {
+    const span = event.currentTarget.children[2];
+    span.style.display = 'none';
+}
+
+const listHover = () => {
+    const listItem = document.querySelectorAll('.checkdiv').forEach(item => {
+        item.addEventListener(('mouseover'), showDelete);
+        item.addEventListener(('mouseout'), hideDelete);
+    })
+    //    listItem.addEventListener(('mouseover'), showDelete);
+    //    listItem.addEventListener(('mouseout'), hideDelete);
+}
+
 

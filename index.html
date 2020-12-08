@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To do list</title>
-    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <h1 class="title">Daily To-Do list manager</h1>
     <div class="container">
@@ -17,8 +19,18 @@
             <input class="inputfield" type="text" placeholder="Take the garbage out">
             <button class="btn__plus">&#43</button>
         </div>
-        <h4 class="pending">You have <span class="pendingNumber"></span> pending items</h4>
-        <h4 class="completed">Completed tasks: <span class="completedPercent"></span></h4>
+        <div class="listsdiv">
+            <h4 class="pending">You have <span class="pendingNumber"></span> pending items</h4>
+            <div class="pendingdiv">
+            </div>
+            <div class="completeddiv">
+                <h4 class="completed">Completed tasks: <span class="completedPercent"></span></h4>
+                <div class="checkeddiv">
+                    <input type="checkbox" name="" id="checkbox">
+                    <span class="checklist">ergthdffdg</span>
+                </div>
+            </div>
+        </div>
         <div class="bottomdiv">
             <button class="btn--bottom btn__showhide">Show Complete</button>
             <button class="btn--bottom btn__clear">Clear All</button>
@@ -27,6 +39,7 @@
 
 
 
-    <script src="./style.css"></script>
+    <script src="./main.js"></script>
 </body>
+
 </html>

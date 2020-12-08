@@ -9,13 +9,16 @@
 <body>
     <h1 class="title">Daily To-Do list manager</h1>
     <div class="container">
-        <h4 class="today">Nap</h4>
+        <div class="datediv">
+            <h4 class="date today"></h4>
+            <h4 class="date todaydate"></h4>
+        </div>
         <div class="inputdiv">
             <input class="inputfield" type="text" placeholder="Take the garbage out">
             <button class="btn__plus">&#43</button>
         </div>
-        <h4 class="pending">You have 2 pending items</h4>
-        <h4 class="completed">Completed tasks 50%</h4>
+        <h4 class="pending">You have <span class="pendingNumber"></span> pending items</h4>
+        <h4 class="completed">Completed tasks: <span class="completedPercent"></span></h4>
         <div class="bottomdiv">
             <button class="btn--bottom btn__showhide">Show Complete</button>
             <button class="btn--bottom btn__clear">Clear All</button>

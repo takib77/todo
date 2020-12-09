@@ -88,25 +88,25 @@ const listGenerator = (input) => {
     const newChecklistElement = `<div class="checkdiv"><input type="checkbox" id="unchecked">
     <span class="checklist">${input}</span><span class="delete">⛒</span></div>`;
 
-    const parentDiv1 = document.querySelector('.pendingdiv')
-    parentDiv1.insertAdjacentHTML('afterbegin', newChecklistElement);
+    const parentDiv = document.querySelector('.pendingdiv')
+    parentDiv.insertAdjacentHTML('afterbegin', newChecklistElement);
     listMouseHover();
+    listDeleter();
 };
 
-const listMover = (event) => {
-    console.log(event);
+const listMover = () => {
+    const listItem = document.querySelector('#unchecked').nextElementSibling.textContent;
     const newCheckedlistElement = `<div class="checkeddiv"><input type="checkbox" id="checked" checked>
-    <span class="checklist">${listitem}</span></div>`;
-    
+    <span class="checklist">${listItem}</span></div>`;
+
     const parentDiv = document.querySelector('.completeddiv')
     parentDiv.insertAdjacentHTML('afterbegin', newCheckedlistElement);
 }
 
 
-// Törlés gomb megjelenítés és elrejtése
+// Törlés gomb megjelenítés, elrejtése, működése
 
 const showDelete = (event) => {
-    console.log(event);
     const span = event.currentTarget.children[2];
     span.style.display = 'block';
 }
@@ -116,6 +116,12 @@ const hideDelete = (event) => {
     span.style.display = 'none';
 }
 
+const deleteList = (event) => {
+    const list = event.target.parentElement;
+    list.remove();
+}
+
+
 const listMouseHover = () => {
     const listItem = document.querySelectorAll('.checkdiv').forEach(item => {
         item.addEventListener(('mouseover'), showDelete);
@@ -123,13 +129,19 @@ const listMouseHover = () => {
     })
 }
 
+const listDeleter = () => {
+    const deleteSpan = document.querySelectorAll('.delete').forEach(item => {
+        item.addEventListener(('click'), deleteList);
+    })
+}
 
 // Pipálási esemény
 
-const checkboxClick = () => {
-    const checkbox = document.querySelectorAll('#unchecked').forEach(item => {
-        checkbox.addEventListener('click', listMover);
+const checkboxEvent = () => {
+    const checkboxes = document.querySelectorAll('#unchecked');
+    checkboxes.forEach(item => {
+        if (item.checked === true) {
+            listMover();
+        }
     });
 }
-
-checkboxClick();

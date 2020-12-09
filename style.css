@@ -92,14 +92,26 @@ body {
     cursor: pointer;
 }
 
-.checkdiv, .checkeddiv {
+.checkdiv {
     background-color: rgb(240, 255, 240);
     margin: .5rem 0;
     padding: 1rem;
 }
 
-.checkdiv:hover, .checkeddiv:hover {
+.checkeddiv {
+    background-color: rgb(255, 255, 200);
+    color: rgb(255, 0, 0);
+    margin: .5rem 0;
+    padding: 1rem;
+    text-decoration: line-through;
+}
+
+.checkdiv:hover {
     background-color: rgb(200, 255, 200);
+}
+
+.checkeddiv:hover {
+    background-color: rgb(255, 255, 140);
 }
 
 .delete {

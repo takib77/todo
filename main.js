@@ -81,20 +81,32 @@ const pendingCounter = (arr) => {
 //completedCounter(data);
 
 
-// Lista megjelenítés
+// Listaelem megjelenítés és áthelyezése
 
 
 const listGenerator = (input) => {
-    const newDomElement = `<div class="checkdiv"><input type="checkbox" id="checkbox">
-<span class="checklist">${input}</span><span class="delete">⛒</span></div>`;
-    document.querySelector('.pendingdiv').innerHTML = newDomElement;  //Egyenlő helyett hozzácsatolás kellene
-    listHover();
+    const newChecklistElement = `<div class="checkdiv"><input type="checkbox" id="unchecked">
+    <span class="checklist">${input}</span><span class="delete">⛒</span></div>`;
+
+    const parentDiv1 = document.querySelector('.pendingdiv')
+    parentDiv1.insertAdjacentHTML('afterbegin', newChecklistElement);
+    listMouseHover();
 };
 
+const listMover = (event) => {
+    console.log(event);
+    const newCheckedlistElement = `<div class="checkeddiv"><input type="checkbox" id="checked" checked>
+    <span class="checklist">${listitem}</span></div>`;
+    
+    const parentDiv = document.querySelector('.completeddiv')
+    parentDiv.insertAdjacentHTML('afterbegin', newCheckedlistElement);
+}
 
-// Törlés gomb megjelenítés
+
+// Törlés gomb megjelenítés és elrejtése
 
 const showDelete = (event) => {
+    console.log(event);
     const span = event.currentTarget.children[2];
     span.style.display = 'block';
 }
@@ -104,13 +116,20 @@ const hideDelete = (event) => {
     span.style.display = 'none';
 }
 
-const listHover = () => {
+const listMouseHover = () => {
     const listItem = document.querySelectorAll('.checkdiv').forEach(item => {
         item.addEventListener(('mouseover'), showDelete);
         item.addEventListener(('mouseout'), hideDelete);
     })
-    //    listItem.addEventListener(('mouseover'), showDelete);
-    //    listItem.addEventListener(('mouseout'), hideDelete);
 }
 
 
+// Pipálási esemény
+
+const checkboxClick = () => {
+    const checkbox = document.querySelectorAll('#unchecked').forEach(item => {
+        checkbox.addEventListener('click', listMover);
+    });
+}
+
+checkboxClick();

@@ -108,7 +108,7 @@ const listMover = (ev) => {
 };
 
 
-// Törlés gomb megjelenítés, elrejtése, működése
+// Törlés gomb megjelenítés, elrejtése
 
 const showDelete = (ev) => {
     const span = ev.currentTarget.children[2];
@@ -127,15 +127,15 @@ const deleteList = (ev) => {
 
 
 const listMouseHover = () => {
-    const listItem = document.querySelectorAll('.checkbox__label').forEach(item => {
-        item.addEventListener(('mouseover'), showDelete);
-        item.addEventListener(('mouseout'), hideDelete);
+    const listItem = document.querySelectorAll('.checkdiv').forEach(item => {
+        item.addEventListener('mouseover', showDelete);
+        item.addEventListener('mouseout', hideDelete);
     })
 };
 
 const listDeleter = () => {
     const deleteSpan = document.querySelectorAll('.delete').forEach(item => {
-        item.addEventListener(('click'), deleteList);
+        item.addEventListener('click', deleteList);
     })
 };
 
@@ -143,6 +143,43 @@ const listDeleter = () => {
 
 const checkboxEvent = () => {
     const checkboxes = document.querySelectorAll('#unchecked').forEach(item => {
-        item.addEventListener(('click'), listMover);
+        item.addEventListener('click', listMover);
     })
 };
+
+
+// Show/Hide gomb működése
+
+const showDivs = (ev) => {
+    console.log('show', ev);
+    const checkeddiv = document.querySelectorAll('.checkeddiv').forEach(div => {
+        div.style.display = 'block';
+    })
+    showButton.style.display='none';
+    hideButton.style.display='initial';
+};
+
+const hideDivs = (ev) => {
+    console.log('hide', ev);
+    const checkeddiv = document.querySelectorAll('.checkeddiv').forEach(div => {
+        div.style.display = 'none';
+    })
+    hideButton.style.display='none';
+    showButton.style.display='initial';
+};
+
+const showButton = document.querySelector('.btn__show');
+const listShower = () => {
+    showButton.addEventListener('click', showDivs);
+};
+
+const hideButton = document.querySelector('.btn__hide');
+const listHider = () => {
+    hideButton.addEventListener('click', hideDivs);
+};
+
+listShower();
+listHider();
+
+
+

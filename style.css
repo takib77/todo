@@ -78,11 +78,22 @@ body {
     transition: .3s;
 }
 
-.btn__showhide:hover {
+.btn__show:hover {
     background-color: rgb(0, 230, 0);
     border-radius: .5rem;
     color: rgb(250, 250, 250);
     cursor: pointer;
+}
+
+.btn__hide:hover {
+    background-color: rgb(50, 230, 50);
+    border-radius: .5rem;
+    color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+.btn__hide {
+    display: none;
 }
 
 .btn__clear:hover {

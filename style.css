@@ -101,6 +101,7 @@ body {
 .checkeddiv {
     background-color: rgb(255, 255, 200);
     color: rgb(255, 0, 0);
+    display: none;
     margin: .5rem 0;
     padding: 1rem;
     text-decoration: line-through;
@@ -113,6 +114,13 @@ body {
 .checkeddiv:hover {
     background-color: rgb(255, 255, 140);
 }
+
+.checkbox__label {
+    cursor: pointer;
+    display: block;
+    padding: 1rem;
+}
+
 
 .delete {
     background-color: rgb(255, 0, 0);

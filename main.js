@@ -36,7 +36,7 @@ todayText();
 // Input mező
 
 const data = [];
-const addClick = (event) => {
+const addClick = (ev) => {
     let input = document.querySelector('.inputfield').value;
     input = input.trim();
     if (input.length === 0) {
@@ -92,56 +92,57 @@ const listGenerator = (input) => {
     parentDiv.insertAdjacentHTML('afterbegin', newChecklistElement);
     listMouseHover();
     listDeleter();
+    checkboxEvent();
 };
 
-const listMover = () => {
-    const listItem = document.querySelector('#unchecked').nextElementSibling.textContent;
-    const newCheckedlistElement = `<div class="checkeddiv"><input type="checkbox" id="checked" checked>
-    <span class="checklist">${listItem}</span></div>`;
+const listMover = (ev) => {
+    const listText = ev.target.nextElementSibling.textContent;
+
+    const newCheckedlistElement = `<div class="checkeddiv"><input type="checkbox" id="checked" checked disabled>
+    <span class="checklist">${listText}</span></div>`;
 
     const parentDiv = document.querySelector('.completeddiv')
     parentDiv.insertAdjacentHTML('afterbegin', newCheckedlistElement);
-}
+
+    document.querySelector('.checkdiv').remove();
+};
 
 
 // Törlés gomb megjelenítés, elrejtése, működése
 
-const showDelete = (event) => {
-    const span = event.currentTarget.children[2];
+const showDelete = (ev) => {
+    const span = ev.currentTarget.children[2];
     span.style.display = 'block';
-}
+};
 
-const hideDelete = (event) => {
-    const span = event.currentTarget.children[2];
+const hideDelete = (ev) => {
+    const span = ev.currentTarget.children[2];
     span.style.display = 'none';
-}
+};
 
-const deleteList = (event) => {
-    const list = event.target.parentElement;
+const deleteList = (ev) => {
+    const list = ev.target.parentElement;
     list.remove();
-}
+};
 
 
 const listMouseHover = () => {
-    const listItem = document.querySelectorAll('.checkdiv').forEach(item => {
+    const listItem = document.querySelectorAll('.checkbox__label').forEach(item => {
         item.addEventListener(('mouseover'), showDelete);
         item.addEventListener(('mouseout'), hideDelete);
     })
-}
+};
 
 const listDeleter = () => {
     const deleteSpan = document.querySelectorAll('.delete').forEach(item => {
         item.addEventListener(('click'), deleteList);
     })
-}
+};
 
 // Pipálási esemény
 
 const checkboxEvent = () => {
-    const checkboxes = document.querySelectorAll('#unchecked');
-    checkboxes.forEach(item => {
-        if (item.checked === true) {
-            listMover();
-        }
-    });
-}
+    const checkboxes = document.querySelectorAll('#unchecked').forEach(item => {
+        item.addEventListener(('click'), listMover);
+    })
+};

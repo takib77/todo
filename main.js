@@ -45,8 +45,8 @@ const addClick = (ev) => {
     data.push(input)
     listGenerator(input);
     document.querySelector('.inputfield').value = '';
-    pendingCounter(data);
-    //    completedCounter(data);
+    pendingCounter();
+    completedCounter();
 }
 
 const plusClick = () => {
@@ -59,26 +59,27 @@ plusClick();
 
 // Számlálók
 
-const pendingCounter = (arr) => {
-    const number = document.querySelector('.pendingNumber');
-    number.textContent = arr.length;
+const pendingCounter = () => {
+    const pendingNum = document.querySelector('.pendingNumber');
+    pendingNum.textContent = document.querySelector('.pendingdiv').childElementCount;
 }
 
-//let copyArray = [];
-//const completedCounter = (arr) => {
-//    const percent = document.querySelector('.completedPercent');
-//    if (arr.length !== 0) {
-//        copyArray.concat(arr);
-//    }
-//    let percentValue = copyArray.length / arr.length * 100;
-//    if (percentValue === NaN) {
-//        percent.textContent = `Not yet`;
-//    } else {
-//        percent.textContent = `${percentValue}%`;
-//    }
-//};
-//
-//completedCounter(data);
+pendingCounter();
+
+const completedCounter = () => {
+    const percent = document.querySelector('.completedPercent');
+    const firstNum = document.querySelector('.pendingdiv').childElementCount;
+    const secondNum = document.querySelector('.completeddiv').childElementCount;
+
+    let percentValue = (secondNum / (firstNum + secondNum) * 100);
+    if (isNaN(percentValue)) {
+        percent.textContent = `Not yet`;
+    } else {
+        percent.textContent = `${percentValue.toFixed(0)}%`;
+    }
+};
+
+completedCounter();
 
 
 // Listaelem megjelenítés és áthelyezése
@@ -105,6 +106,8 @@ const listMover = (ev) => {
     parentDiv.insertAdjacentHTML('afterbegin', newCheckedlistElement);
 
     document.querySelector('.checkdiv').remove();
+    pendingCounter();
+    completedCounter();
 };
 
 
@@ -123,6 +126,8 @@ const hideDelete = (ev) => {
 const deleteList = (ev) => {
     const list = ev.target.parentElement;
     list.remove();
+    pendingCounter();
+    completedCounter();
 };
 
 
@@ -151,21 +156,19 @@ const checkboxEvent = () => {
 // Show/Hide gomb működése
 
 const showDivs = (ev) => {
-    console.log('show', ev);
     const checkeddiv = document.querySelectorAll('.checkeddiv').forEach(div => {
         div.style.display = 'block';
     })
-    showButton.style.display='none';
-    hideButton.style.display='initial';
+    showButton.style.display = 'none';
+    hideButton.style.display = 'initial';
 };
 
 const hideDivs = (ev) => {
-    console.log('hide', ev);
     const checkeddiv = document.querySelectorAll('.checkeddiv').forEach(div => {
         div.style.display = 'none';
     })
-    hideButton.style.display='none';
-    showButton.style.display='initial';
+    hideButton.style.display = 'none';
+    showButton.style.display = 'initial';
 };
 
 const showButton = document.querySelector('.btn__show');
@@ -182,4 +185,18 @@ listShower();
 listHider();
 
 
+// Clear all gomb
 
+const clearDivs = (ev) => {
+    const checkeddiv = document.querySelectorAll('.checkeddiv').forEach(div => {
+        div.remove()
+    })
+    completedCounter();
+};
+
+const listCleaner = () => {
+    const clearButton = document.querySelector('.btn__clear')
+    clearButton.addEventListener('click', clearDivs)
+};
+
+listCleaner();

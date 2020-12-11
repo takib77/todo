@@ -6,15 +6,12 @@
 let time;
 const date = new Date();
 const today = () => {
-    const seconds = date.getSeconds();
-    const minutes = date.getMinutes();
-    const hours = date.getHours();
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const weekday = weekdays[date.getDay()];
     const day = zero(date.getDate());
     const month = zero(date.getMonth() + 1);
     const year = date.getFullYear();
-    time = [`${hours}:${minutes}:${seconds}`, `${weekday}`, `${day}-${month}-${year}`];
+    time = [`${weekday}`, `${day}-${month}-${year}`];
     return time;
 };
 
@@ -23,15 +20,37 @@ const zero = (number) => {
 }
 
 const todayText = () => {
-    const line1 = `${time[1]}`
-    const line2 = `${time[2]}`
-    document.querySelector('.today').textContent = line1;
-    document.querySelector('.todaydate').textContent = line2;
+    const todayName = `${time[0]}`
+    const todayDate = `${time[1]}`
+    document.querySelector('.today').textContent = todayName;
+    document.querySelector('.todaydate').textContent = todayDate;
 };
 
-today();
-todayText();
 
+
+// LocalStorage kezelés
+
+let tasks = [];
+const storageHandler = {
+    saveToStorage(key, value) {
+        value = JSON.stringify(value);
+        localStorage.setItem(key, value)
+    },
+    getFromStorage(key) {
+        const value = localStorage.getItem(key);
+        if (!value) {
+            return null;
+        } else {
+            return JSON.parse(value)
+        }
+    },
+    deleteStorage() {
+        localStorage.clear()
+    }
+};
+
+//storageHandler.saveToStorage('tasks', tasks);
+//storageHandler.getFromStorage('tasks');
 
 // Input mező
 
@@ -43,6 +62,7 @@ const addClick = (ev) => {
         return alert('Írj be valamit a mezőbe a gomb megnyomása előtt!');
     }
     data.push(input)
+    //    storageHandler.saveToStorage('tasks', tasks);
     listGenerator(input);
     document.querySelector('.inputfield').value = '';
     pendingCounter();
@@ -54,8 +74,6 @@ const plusClick = () => {
     plusButton.addEventListener('click', addClick);
 }
 
-plusClick();
-
 
 // Számlálók
 
@@ -64,7 +82,6 @@ const pendingCounter = () => {
     pendingNum.textContent = document.querySelector('.pendingdiv').childElementCount;
 }
 
-pendingCounter();
 
 const completedCounter = () => {
     const percent = document.querySelector('.completedPercent');
@@ -79,11 +96,8 @@ const completedCounter = () => {
     }
 };
 
-completedCounter();
-
 
 // Listaelem megjelenítés és áthelyezése
-
 
 const listGenerator = (input) => {
     const newChecklistElement = `<div class="checkdiv"><input type="checkbox" id="unchecked">
@@ -144,6 +158,7 @@ const listDeleter = () => {
     })
 };
 
+
 // Pipálási esemény
 
 const checkboxEvent = () => {
@@ -181,9 +196,6 @@ const listHider = () => {
     hideButton.addEventListener('click', hideDivs);
 };
 
-listShower();
-listHider();
-
 
 // Clear all gomb
 
@@ -192,6 +204,7 @@ const clearDivs = (ev) => {
         div.remove()
     })
     completedCounter();
+    storageHandler.deleteStorage();
 };
 
 const listCleaner = () => {
@@ -199,4 +212,22 @@ const listCleaner = () => {
     clearButton.addEventListener('click', clearDivs)
 };
 
-listCleaner();
+
+// Start
+
+const start = () => {
+    const savedTasks = storageHandler.getFromStorage('tasks');
+    if (savedTasks) {
+        tasks = savedTasks;
+    }
+    today();
+    todayText();
+    plusClick();
+    pendingCounter();
+    completedCounter();
+    listShower();
+    listHider();
+    listCleaner();
+};
+
+start();

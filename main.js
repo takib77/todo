@@ -29,6 +29,7 @@ const todayText = () => {
 
 
 // LocalStorage kezelés
+let it;
 
 let tasks = [];
 const storageHandler = {
@@ -36,12 +37,16 @@ const storageHandler = {
         value = JSON.stringify(value);
         localStorage.setItem(key, value)
     },
-    getFromStorage(key) {
-        const value = localStorage.getItem(key);
-        if (!value) {
-            return null;
-        } else {
-            return JSON.parse(value)
+    getFromStorage() {
+        for (let i = localStorage.length; i > 0; i -= 1) {
+            tasks.push(JSON.parse(localStorage[i]))
+        };
+//        const value = localStorage.getItem(tasks);
+//        if (!value) {
+//            return null;
+//        }
+        for (let j = 0; j < tasks.length; j += 1) {
+            listGenerator(tasks[j]);
         }
     },
     deleteStorage() {
@@ -49,22 +54,18 @@ const storageHandler = {
     }
 };
 
-//storageHandler.saveToStorage('tasks', tasks);
-//storageHandler.getFromStorage('tasks');
 
 // Input mező
 
-const data = [];
 const addClick = (ev) => {
     let input = document.querySelector('.inputfield').value;
     input = input.trim();
     if (input.length === 0) {
         return alert('Írj be valamit a mezőbe a gomb megnyomása előtt!');
     }
-    data.push(input)
-    //    storageHandler.saveToStorage('tasks', tasks);
-    listGenerator(input);
+    storageHandler.saveToStorage(tasks.push(input), input);
     document.querySelector('.inputfield').value = '';
+    listGenerator(input);
     pendingCounter();
     completedCounter();
 }
@@ -216,7 +217,7 @@ const listCleaner = () => {
 // Start
 
 const start = () => {
-    const savedTasks = storageHandler.getFromStorage('tasks');
+    const savedTasks = storageHandler.getFromStorage();
     if (savedTasks) {
         tasks = savedTasks;
     }

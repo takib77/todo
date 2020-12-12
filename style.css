@@ -106,7 +106,14 @@ body {
 .checkdiv {
     background-color: rgb(240, 255, 240);
     margin: .5rem 0;
+    max-width: 420px;
     padding: 1rem;
+    animation: anim--div ease 1s;
+}
+
+@keyframes anim--div {
+    0% {width: 0; position: relative; left: 420px}
+    100% {width: 100%; position: relative; left: 0px}
 }
 
 .checkeddiv {
@@ -114,6 +121,7 @@ body {
     color: rgb(255, 0, 0);
     display: none;
     margin: .5rem 0;
+    max-width: 420px;
     padding: 1rem;
     text-decoration: line-through;
 }
@@ -126,12 +134,10 @@ body {
     background-color: rgb(255, 255, 140);
 }
 
-.checkbox__label {
-    cursor: pointer;
-    display: block;
-    padding: 1rem;
+.checklist {
+    max-width: 360px;
+    overflow: hidden;
 }
-
 
 .delete {
     background-color: rgb(255, 0, 0);
@@ -140,9 +146,14 @@ body {
     float: right;
     margin: -1rem;
     padding: .9rem;
+    animation: anim--btn ease .5s;
+}
+
+@keyframes anim--btn {
+    0% {width: 0; position: relative; left: 20px}
+    100% {position: relative; left: 0px}
 }
 
 .delete:hover {
     cursor: pointer;
 }
-

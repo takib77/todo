@@ -41,15 +41,11 @@ const storageHandler = {
         for (let i = localStorage.length; i > 0; i -= 1) {
             tasks.push(JSON.parse(localStorage[i]))
         };
-//        const value = localStorage.getItem(tasks);
-//        if (!value) {
-//            return null;
-//        }
         for (let j = 0; j < tasks.length; j += 1) {
             listGenerator(tasks[j]);
         }
     },
-    deleteStorage() {
+    clearStorage() {
         localStorage.clear()
     }
 };
@@ -120,7 +116,7 @@ const listMover = (ev) => {
     const parentDiv = document.querySelector('.completeddiv')
     parentDiv.insertAdjacentHTML('afterbegin', newCheckedlistElement);
 
-    document.querySelector('.checkdiv').remove();
+    ev.target.parentElement.remove();
     pendingCounter();
     completedCounter();
 };
@@ -205,7 +201,7 @@ const clearDivs = (ev) => {
         div.remove()
     })
     completedCounter();
-    storageHandler.deleteStorage();
+    storageHandler.clearStorage();
 };
 
 const listCleaner = () => {
